@@ -3,8 +3,11 @@ import { View, ImageBackground, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { ImageDetailsStyle } from './style';
 import DismissKeyboardView from '../../components/DissmissKeybord';
+import { useStoreActions } from 'easy-peasy';
 
-const ImageDetails = ({ navigation }) => {
+const ImageDetails = ({ route, navigation }) => {
+    const { zone, image } = route.params;
+    const addInspection = useStoreActions((actions) => actions.addInspection)
     const [details, setDetails] = useState({
         commentaire: '',
         priorite: 1,
@@ -15,8 +18,22 @@ const ImageDetails = ({ navigation }) => {
         details[name] = value;
         setDetails(detailsCopy);
     }
-    const next = () => {
+
+    const addInspectionItem = () => addInspection({
+        zone,
+        imageUrl: image,
+        comment: details.commentaire,
+        priority: details.priorite,
+        inCharge: details.responsable
+    })
+
+    const addAnotherOne = () => {
+        addInspectionItem();
         navigation.navigate('ZoneDetails')
+    }
+    const finaliser = () => {
+        addInspectionItem();
+        navigation.navigate('GenerateReport')
     }
     return (
         <View style={ImageDetailsStyle.Container}>
@@ -53,8 +70,12 @@ const ImageDetails = ({ navigation }) => {
                     </View>
                     <Button
                         style={ImageDetailsStyle.Button}
-                        onPress={next}
-                        title='Suivant' />
+                        onPress={addAnotherOne}
+                        title='Ajouter un autre' />
+                    <Button
+                        style={ImageDetailsStyle.Button}
+                        onPress={finaliser}
+                        title='Finaliser inspection' />
                 </DismissKeyboardView>
             </ImageBackground>
         </View>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Text, Picker, View, ImageBackground, Button } from 'react-native';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 import { HomepageStyle } from './style';
 
 const Home = ({ navigation }) => {
-    const [selectedValue, setSelectedValue] = useState("infraFoodDefense");
+    const updateState = useStoreActions((actions) => actions.updateState)
+    const type = useStoreState((state) => state.type)
     const next = () => {
         navigation.navigate('InspectorDetails')
     }
@@ -14,9 +16,9 @@ const Home = ({ navigation }) => {
                 <View style={HomepageStyle.CardContainer}>
                     <Text style={HomepageStyle.Label}>Type d'inspection</Text>
                     <Picker
-                        selectedValue={selectedValue}
+                        selectedValue={type}
                         style={{ height: 100, width: 250 }}
-                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                        onValueChange={(itemValue, itemIndex) => updateState({ key: 'type', value: itemValue })}
                     >
                         <Picker.Item label="Infrastructure et food défense" value="infraFoodDefense" />
                         <Picker.Item label="Hygiène et sécurité" value="hygSec" />

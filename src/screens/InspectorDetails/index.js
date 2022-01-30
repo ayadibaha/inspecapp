@@ -3,21 +3,16 @@ import { Text, Picker, View, ImageBackground, TextInput, Button } from 'react-na
 import DatePicker from 'react-native-date-picker'
 import { InspectDetailsStyle } from './style';
 import DismissKeyboardView from '../../components/DissmissKeybord';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 
 const InspectorDetails = ({ navigation }) => {
     const [open, setOpen] = useState(false)
-    const [details, setDetails] = useState({
-        premierInspecteur: '',
-        secondInspecteur: '',
-        dateInspection: '',
-        semaine: 0,
-        station: 'Guipavas'
-    })
-    const updateDetails = (name, value) => {
-        const detailsCopy = { ...details };
-        details[name] = value;
-        setDetails(detailsCopy);
-    }
+    const updateDetails = useStoreActions((actions) => actions.updateState)
+    const firstInspector = useStoreState((state) => state.firstInspector)
+    const secondInspector = useStoreState((state) => state.secondInspector)
+    const inspectionDate = useStoreState((state) => state.inspectionDate)
+    const weekNumber = useStoreState((state) => state.weekNumber)
+    const station = useStoreState((state) => state.station)
     const next = () => {
         navigation.navigate('ZoneDetails')
     }
@@ -28,15 +23,15 @@ const InspectorDetails = ({ navigation }) => {
                     <View style={InspectDetailsStyle.CardContainer}>
                         <TextInput
                             style={InspectDetailsStyle.Input}
-                            onChangeText={text => updateDetails('premierInspecteur', text)}
-                            defaultValue={details.premierInspecteur}
+                            onChangeText={text => updateDetails({ key: 'firstInspector', value: text })}
+                            defaultValue={firstInspector}
                             placeholder="Inspecteur 1"
                             keyboardType="ascii-capable"
                         />
                         <TextInput
                             style={InspectDetailsStyle.Input}
-                            onChangeText={text => updateDetails('secondInspecteur', text)}
-                            defaultValue={details.secondInspecteur}
+                            onChangeText={text => updateDetails({ key: 'secondInspector', value: text })}
+                            defaultValue={secondInspector}
                             placeholder="Inspecteur 2"
                             keyboardType="ascii-capable"
                         />
@@ -44,18 +39,18 @@ const InspectorDetails = ({ navigation }) => {
                             style={InspectDetailsStyle.ButtonView}>
                             <Button
                                 color={'#0e0e0e'}
-                                title={details.dateInspection !== '' ? details.dateInspection : "Date d'inspection"}
+                                title={inspectionDate !== '' ? inspectionDate.toISOString() : "Date d'inspection"}
                                 onPress={() => setOpen(true)} />
 
                             <DatePicker
                                 modal
                                 androidVariant='nativeAndroid'
                                 open={open}
-                                date={new Date()}
+                                date={inspectionDate}
                                 mode={'date'}
                                 onConfirm={(date) => {
                                     setOpen(false)
-                                    updateDetails('dateInspection', date)
+                                    updateDetails({ key: 'inspectionDate', value: date })
                                 }}
                                 onCancel={() => {
                                     setOpen(false)
@@ -64,15 +59,15 @@ const InspectorDetails = ({ navigation }) => {
                         </View>
                         <TextInput
                             style={InspectDetailsStyle.Input}
-                            onChangeText={text => updateDetails('semaine', parseInt(text, 10))}
-                            defaultValue={details.semaine + ''}
+                            onChangeText={text => updateDetails({ key: 'weekNumber', value: parseInt(text, 10) })}
+                            defaultValue={weekNumber + ''}
                             placeholder="Semaine"
                             keyboardType="number-pad"
                         />
                         <Picker
-                            selectedValue={details.station}
+                            selectedValue={station}
                             style={InspectDetailsStyle.Input}
-                            onValueChange={(itemValue, itemIndex) => updateDetails('station', itemValue)}
+                            onValueChange={(itemValue, itemIndex) => updateDetails({ key: 'station', value: itemValue })}
                         >
                             <Picker.Item label="Guipavas" value="Guipavas" />
                             <Picker.Item label="Plougastel" value="Plougastel" />

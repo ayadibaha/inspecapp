@@ -1,10 +1,14 @@
+import { StoreProvider } from 'easy-peasy';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MyNavigator from './src/navigations/StackNavigator';
+import inspectionStore from './src/state/inspection';
 
 export default function App() {
   return (
-    <MyNavigator />
+    <StoreProvider store={inspectionStore}>
+      <MyNavigator />
+    </StoreProvider>
   );
 }
 

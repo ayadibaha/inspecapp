@@ -12,9 +12,12 @@
     "@react-native-picker/picker": "2.2.1",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
+    "easy-peasy": "^5.0.4",
     "expo": "~44.0.2",
     "expo-camera": "~12.1.0",
     "expo-dev-client": "~0.8.0",
+    "expo-file-system": "~13.1.2",
+    "expo-sharing": "~10.1.0",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
@@ -27,7 +30,8 @@
     "react-native-permissions": "^3.2.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "xlsx": "^0.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

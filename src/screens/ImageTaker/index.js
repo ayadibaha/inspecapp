@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Button, TouchableOpacity, ToastAndroid, Text, Image, Modal } from 'react-native';
+import { View, ToastAndroid, Text, Image, Modal } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { Camera } from 'expo-camera';
 import { ImageTakerStyle } from './style';
 
-const ImageTakerDetails = ({ navigation }) => {
+const ImageTakerDetails = ({ route, navigation }) => {
+    const { zone } = route.params;
     const [image, setImage] = useState(null);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -32,6 +33,9 @@ const ImageTakerDetails = ({ navigation }) => {
     }
     if (hasPermission === false) {
         return <Text>No access to camera</Text>;
+    }
+    const next = () => {
+        navigation.navigate('ImageDetails', { zone, image })
     }
     const CameraView = () => (
         <Camera style={ImageTakerStyle.camera} type={type} ref={r => { camera = r }}>
@@ -81,7 +85,7 @@ const ImageTakerDetails = ({ navigation }) => {
                         icon='image-plus'
                         color='black'
                         size={50}
-                        onPress={() => setImage(null)} />
+                        onPress={() => next()} />
                 </View>
             </View>
         </Modal>

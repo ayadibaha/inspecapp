@@ -8,6 +8,7 @@ import Details from '../screens/InspectorDetails/index';
 import ZoneDetails from '../screens/ZoneDetails/index';
 import ImageTaker from '../screens/ImageTaker/index';
 import ImageDetails from '../screens/ImageDetails/index';
+import GenerateReport from '../screens/GenerateReport/index';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,11 @@ export default function MyNavigator() {
             <Stack.Screen
                 name="ImageDetails"
                 component={ImageDetails}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="GenerateReport"
+                component={GenerateReport}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>

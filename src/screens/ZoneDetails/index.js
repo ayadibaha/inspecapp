@@ -6,7 +6,7 @@ import { ZoneDetailsStyle } from './style';
 const ZoneDetails = ({ navigation }) => {
     const [zone, setZone] = useState('Zone A');
     const next = () => {
-        navigation.navigate('ImageTaker')
+        navigation.navigate('ImageTaker', { zone })
     }
     return (
         <View style={ZoneDetailsStyle.Container}>
