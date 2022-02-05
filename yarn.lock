@@ -1977,6 +1977,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/datetimepicker@npm:4.0.0":
+  version: 4.0.0
+  resolution: "@react-native-community/datetimepicker@npm:4.0.0"
+  dependencies:
+    invariant: ^2.2.4
+  checksum: 4a86807ee3bb3437c1a57ef33e4066f58c5d23c8f22231007964247ea9c8c7abfc27342ee85cc42df0c2776061570cdf8e4eb802024fcccaf71ee7fe3ec319d9
+  languageName: node
+  linkType: hard
+
 "@react-native-picker/picker@npm:2.2.1":
   version: 2.2.1
   resolution: "@react-native-picker/picker@npm:2.2.1"
@@ -4644,6 +4653,7 @@ fsevents@^2.1.2:
   resolution: "inspectapp@workspace:."
   dependencies:
     "@babel/core": ^7.12.9
+    "@react-native-community/datetimepicker": 4.0.0
     "@react-native-picker/picker": 2.2.1
     "@react-navigation/native": ^6.0.6
     "@react-navigation/stack": ^6.0.11
@@ -4658,7 +4668,6 @@ fsevents@^2.1.2:
     react: 17.0.1
     react-dom: 17.0.1
     react-native: 0.64.3
-    react-native-date-picker: ^4.1.3
     react-native-gesture-handler: ^2.1.1
     react-native-image-picker: ^4.7.0
     react-native-paper: ^4.11.2
@@ -6789,13 +6798,6 @@ fsevents@^2.1.2:
     jscodeshift: ^0.11.0
     nullthrows: ^1.1.1
   checksum: 545d1e416be5bd0bc27a9bc4d58719317577fbcb38f80082857142f4946ba336df3f5fa3e87137709691acd809ee46e1f52834648399cb50219a70f441d6e6a3
-  languageName: node
-  linkType: hard
-
-"react-native-date-picker@npm:^4.1.3":
-  version: 4.1.3
-  resolution: "react-native-date-picker@npm:4.1.3"
-  checksum: e56779e83733cc87d5c52b13f8a2a45ff0cd9c6fafeafbdcf857946853e6ee9defd2ee40f3852abaed2d848f9dae547409b934ab29d3251343ea108924592e81
   languageName: node
   linkType: hard
 

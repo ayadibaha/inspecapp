@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Text, Picker, View, ImageBackground, TextInput, Button } from 'react-native';
-import DatePicker from 'react-native-date-picker'
 import { ZoneDetailsStyle } from './style';
 
 const ZoneDetails = ({ navigation }) => {

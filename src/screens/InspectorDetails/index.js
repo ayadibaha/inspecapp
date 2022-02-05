@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Text, Picker, View, ImageBackground, TextInput, Button } from 'react-native';
-import DatePicker from 'react-native-date-picker'
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { InspectDetailsStyle } from './style';
 import DismissKeyboardView from '../../components/DissmissKeybord';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 const InspectorDetails = ({ navigation }) => {
-    const [open, setOpen] = useState(false)
+    const [show, setShow] = useState(false);
     const updateDetails = useStoreActions((actions) => actions.updateState)
     const firstInspector = useStoreState((state) => state.firstInspector)
     const secondInspector = useStoreState((state) => state.secondInspector)
@@ -16,8 +16,19 @@ const InspectorDetails = ({ navigation }) => {
     const next = () => {
         navigation.navigate('ZoneDetails')
     }
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || inspectionDate;
+        updateDetails({ key: 'inspectionDate', value: currentDate })
+        setShow(false);
+    };
     return (
         <View style={InspectDetailsStyle.Container}>
+            {show && <DateTimePicker
+                value={inspectionDate}
+                mode='date'
+                display="default"
+                onChange={onChange}
+            />}
             <ImageBackground source={require('../../assets/images/bg.png')} resizeMode="cover" style={InspectDetailsStyle.Image}>
                 <DismissKeyboardView>
                     <View style={InspectDetailsStyle.CardContainer}>
@@ -35,32 +46,15 @@ const InspectorDetails = ({ navigation }) => {
                             placeholder="Inspecteur 2"
                             keyboardType="ascii-capable"
                         />
-                        <View
-                            style={InspectDetailsStyle.ButtonView}>
-                            <Button
-                                color={'#0e0e0e'}
-                                title={inspectionDate !== '' ? inspectionDate.toISOString() : "Date d'inspection"}
-                                onPress={() => setOpen(true)} />
-
-                            <DatePicker
-                                modal
-                                androidVariant='nativeAndroid'
-                                open={open}
-                                date={inspectionDate}
-                                mode={'date'}
-                                onConfirm={(date) => {
-                                    setOpen(false)
-                                    updateDetails({ key: 'inspectionDate', value: date })
-                                }}
-                                onCancel={() => {
-                                    setOpen(false)
-                                }}
-                            />
-                        </View>
+                        <TextInput
+                            style={InspectDetailsStyle.Input}
+                            defaultValue={inspectionDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'short', day: 'numeric' })}
+                            placeholder="Date d'inspection"
+                            onFocus={() => setShow(true)}
+                        />
                         <TextInput
                             style={InspectDetailsStyle.Input}
                             onChangeText={text => updateDetails({ key: 'weekNumber', value: parseInt(text, 10) })}
-                            defaultValue={weekNumber + ''}
                             placeholder="Semaine"
                             keyboardType="number-pad"
                         />

@@ -5,7 +5,14 @@
     "version": "0.1.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.ayadibaha.inspectApp",
+      "permissions": [
+        "READ_CALENDAR",
+        "WRITE_CALENDAR"
+      ]
+    }
   },
   "name": "inspectApp"
 }
