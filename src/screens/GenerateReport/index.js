@@ -33,15 +33,16 @@ const GenerateReport = ({ navigation }) => {
         //         imageUrl: image
         //     }
         // })
-        const data = [{
-            type,
-            firstInspector,
-            secondInspector,
-            inspectionDate,
-            weekNumber,
-            station,
-        }, ...inspections];
-        const ws = XLSX.utils.json_to_sheet(data);
+        const newData = [
+            ['Type', 'Inspecteur 1', 'Inspecteur 2', 'Date d\'inspection', 'Semaine', 'Station'],
+            [type, firstInspector, secondInspector, inspectionDate, weekNumber, station],
+            ['Zone', 'Image', 'Commentaire', 'Priorité', 'Responsable', 'Action décidé par responsable', 'Date de contrôle', 'Statut'],
+        ]
+        inspections.forEach((inspection) => {
+            const { zone, imageUrl, comment, priority, inCharge } = inspection;
+            newData.push([zone, { type: 'file', value: imageUrl }, comment, priority, inCharge, '', '', '']);
+        })
+        const ws = XLSX.utils.aoa_to_sheet(newData);
         const wb = XLSX.utils.book_new();
         const sheetName = `Inspection-${inspectionDate.toISOString().split('T')[0]}`
         XLSX.utils.book_append_sheet(wb, ws, sheetName);
